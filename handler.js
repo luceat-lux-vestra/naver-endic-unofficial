@@ -129,7 +129,7 @@ function showTooltipFromSelection(sel, text) {
   let bounds = range.getBoundingClientRect();
   showTooltip(text, {
     left: Math.trunc(window.pageXOffset + bounds.left),
-    top: Math.trunc(window.pageYOffset + bounds.bottom)
+    top: Math.trunc(window.pageYOffset + bounds.top)
   });
 }
 
@@ -137,6 +137,9 @@ function showTooltip(text, pos) {
   let tooltip = document.createElement('div');
   tooltip.id = TOOLTIP_ID;
   let dictUrl = browser.runtime.getURL('dict.html') + `?text=${text}`;
+  
+  pos.top = pos.top - 166;
+  
   tooltip.innerHTML = `<iframe style="border: 0" src="${dictUrl}"></iframe>`;
   tooltip.style.setProperty('position', `absolute`, 'important');
   tooltip.style.setProperty('top', `${pos.top}px`, 'important');
